@@ -1,0 +1,21 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+entity Socio{
+nombre
+apellido
+correo electronico
+numero de socio
+contraseña
+libros prestados
+}
+entity Libro{
+titulo
+autor
+categoria
+isbn
+calificaciones del libro
+}
+
+Socio "1" --> "1..100" Libro: arrienda
+@enduml

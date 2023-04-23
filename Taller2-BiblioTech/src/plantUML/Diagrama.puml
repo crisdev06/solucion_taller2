@@ -1,0 +1,81 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+
+class Main{
+}
+
+package sistema{
+
+    class Menu{
+    -sistema:Sistema
+    +Menu()
+    +iniciarSistema():void
+    +iniciarSesion(Sistema sistema):void
+    +menuPrincipal(Sistema sistema):void
+    +calificarLibro(Sistema sistema):void
+    +menuPrestamo(Sistema sistema):void
+    +editarInformacion(Sistema sistema):void
+    +editarNombre(Sistema sistema):void
+    +editarApellido(Sistema sistema):void
+    +editarCorreo(Sistema sistema):void
+    }
+
+    class Sistema{
+    -listaSocio:Socio[]
+    -listaLibro:Libro[]
+    -socioLogueado:Socio
+    +Sistema()
+    +iniciarSesion(String numeroSocio,String contrasenia):boolean
+    +prestamoLibro(String isbn):boolean
+    +editarNombreSocio(String nombre):void
+    +editarApellidoSocio(String apellido):void
+    +editarCorreoSocio(String correo):void
+    +catalogoLibros():String[]
+    +obtenerDatosSocio():String
+    +calificarLibro(String titulo, int calificacion):void
+    +promedioDelLibro(String titulo):int
+    +cerrarSesion():void
+    }
+}
+package modelo{
+
+    class Libro{
+    -titulo:String
+    -autor:String
+    -categoria:String
+    -isbn:String
+    -calificaciones:int[]
+    +Libro(String titulo, String autor, String categoria, String isbn)
+    +get's()
+    +set's()
+    +notaPromedio():int
+    +setCalificaciones(int calificacion):void
+    +toString():String
+    }
+
+    class Socio{
+
+    -nombre:String
+    -apellido:String
+    -correoElectronico:String
+    -numeroDeSocio:String
+    -contrasenia:String
+    -listaPrestamos:Libro[]
+    +Socio(String nombre, String apellido, String correoElectronico,
+            String numeroDeSocio, String contrasenia)
+    +get's()
+    +set's()
+    +agregarLibroPrestado(Libro libro):boolean
+    +toString():String
+    }
+
+}
+Main -- Sistema
+Sistema ..> Menu: implementa
+Menu "1" --> "0..100" Socio: contiene
+Menu "1" --> "0..100" Libro: contiene
+Socio "1" -left-> "0..100" Libro: arrienda
+
+
+@enduml
